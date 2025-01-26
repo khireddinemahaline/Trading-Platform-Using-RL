@@ -34,5 +34,5 @@ This project is a **Crypto Trading Platform** that utilizes **Reinforcement Lear
 Start by cloning the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/crypto-trading-platform.git
-cd crypto-trading-platform
+[git clone https://github.com/yourusername/crypto-trading-platform.git](https://github.com/khireddinemahaline/Trading-Platform-Using-RL.git)
+cd Trading-Platform-Using-RL
