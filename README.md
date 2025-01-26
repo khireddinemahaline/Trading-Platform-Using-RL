@@ -36,3 +36,5 @@ Start by cloning the repository to your local machine:
 ```bash
 git clone https://github.com/khireddinemahaline/Trading-Platform-Using-RL.git
 cd Trading-Platform-Using-RL
+sudo docker-compose build
+sudo docker-compose up -d
