@@ -7,12 +7,11 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY prisma ./prisma
-
-RUN npx prisma generate
 
 COPY . .
 
-EXPOSE 4000
+EXPOSE 5000
+
+RUN npx prisma generate
 
 CMD ["node", "api/v1/server.js"]
