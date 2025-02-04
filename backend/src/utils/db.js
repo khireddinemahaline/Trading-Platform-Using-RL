@@ -2,12 +2,15 @@ import { MongoClient } from 'mongodb';
 
 class DBClient {
   constructor() {
-    this.host = process.env.DB_HOST || 'localhost';
-    this.port = process.env.DB_PORT || 27017;
-    this.database = process.env.DB_DATABASE || 'tradingRL';
-    this.url = `mongodb://${this.host}:${this.port}`;
-    this.client = new MongoClient(this.url);
+    // Use DATABASE_URL from environment variables for MongoDB Atlas
+    this.url = process.env.DATABASE_URL || 'mongodb://localhost:27017'; // Default fallback for local development
+    this.client = new MongoClient(this.url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     this.db = null;
+
+    // Connect to the database on initialization
     this.connect();
   }
 

@@ -10,7 +10,7 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - NEXT_PUBLIC_API_URL=http://backend:5000  # Use service name for inter-container communication
+      - NEXT_PUBLIC_API_URL=http://backend:5000  # Use the backend service name
     restart: always
     depends_on:
       - backend
@@ -18,11 +18,43 @@ services:
   backend:
     container_name: backend
     image: backend
-    build: 
+    build:
       context: ./backend
       dockerfile: backend.dockerfile
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=mongodb+srv://tradingRL:trading!test@production-cluster.doh42.mongodb.net/tradingRL
+      - DATABASE_URL=mongodb://db:27017/tradingRL  # Use the db service name
+      - REDIS_HOST=redis  # Use the Redis service name
+      - REDIS_PORT=6379
     restart: always
+    depends_on:
+      - db  # Add dependency on the MongoDB service
+      - redis
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"  # Expose Redis on the host for development purposes
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]  # Health check for Redis
+      interval: 10s
+      retries: 3
+      timeout: 5s
+
+  db:
+    container_name: db
+    image: mongo
+    ports:
+      - "27017:27017"  # Expose MongoDB on the host for development purposes
+    volumes:
+      - ./data:/data/db  # Persist data in the ./data directory
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]  # Health check for MongoDB
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s

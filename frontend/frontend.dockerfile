@@ -5,7 +5,7 @@ FROM node:20.18.0 AS base
 WORKDIR /app
 
 # Install production dependencies first
-COPY package.json package-lock.json ./
+COPY package*.json ./
 RUN npm install 
 
 # Copy the rest of the source code into the container

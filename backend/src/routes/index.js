@@ -17,7 +17,7 @@ const initialization = (api) => {
     api.get('/users/me', UsersController.getMe);
 
     // Define routes for AuthController
-    api.get('/connect', AuthController.getConnect);
+    api.post('/connect', AuthController.getConnect);
     api.get('/disconnect', AuthController.getDisconnect);
 }
 
