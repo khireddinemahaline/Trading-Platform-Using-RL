@@ -68,7 +68,7 @@ const RegisterPage = () => {
       }, 2000);
     } catch (error) {
       console.error('Fetch error:', error);
-      setError(error.message || 'An error occurred during registration');
+      setError('An error occurred during registration');
     } finally {
       setIsLoading(false);
     }
