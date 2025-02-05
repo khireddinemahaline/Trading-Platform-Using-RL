@@ -1,19 +1,20 @@
 // Listcoin.tsx
-
 'use client'; // Ensures this component is a Client Component
 
 import React from 'react';
 import ToggleButtonAgent from './Button';
 
-interface CoinData {
+// Define CoinData type
+type CoinData = {
   name: string;
   symbol: string;
-  price: number;
-  change: number;
-  preferred: boolean;
-  marketCap: number;
-}
+  price?: number;
+  change?: number;
+  preferred?: boolean;
+  marketCap?: number;
+};
 
+// Sample coin data
 const coinData: CoinData[] = [
   {
     name: 'Bitcoin',
@@ -57,6 +58,7 @@ const coinData: CoinData[] = [
   },
 ];
 
+// Format market capitalization
 const formatMarketCap = (value: number): string => {
   if (value >= 1e12) return `$${(value / 1e12).toFixed(2)}T`;
   if (value >= 1e9) return `$${(value / 1e9).toFixed(2)}B`;
@@ -64,11 +66,14 @@ const formatMarketCap = (value: number): string => {
   return `$${value}`;
 };
 
+// Main component
 const Listcoin: React.FC = () => {
+  // Handle agent start
   const handleStartAgent = (coin: CoinData) => {
     alert(`Starting agent for ${coin.name}`);
   };
 
+  // Handle agent stop
   const handleStopAgent = (coin: CoinData) => {
     alert(`Stopping agent for ${coin.name}`);
   };
@@ -104,22 +109,21 @@ const Listcoin: React.FC = () => {
 
             {/* Price */}
             <div className="text-secondary-color font-bold">
-              ${coin.price.toLocaleString()}
+              ${coin.price?.toLocaleString() || 'N/A'}
             </div>
 
             {/* Market Cap */}
             <div className="text-gray-600">
-              {formatMarketCap(coin.marketCap)}
+              {coin.marketCap ? formatMarketCap(coin.marketCap) : 'N/A'}
             </div>
 
             {/* Change */}
             <div
               className={`font-medium ${
-                coin.change > 0 ? 'text-green-500' : 'text-red-500'
+                coin.change && coin.change > 0 ? 'text-green-500' : 'text-red-500'
               }`}
             >
-              {coin.change > 0 ? '+' : ''}
-              {coin.change.toFixed(2)}%
+              {coin.change != null ? (coin.change > 0 ? '+' : '') + coin.change.toFixed(2) + '%' : 'N/A'}
             </div>
 
             {/* Preferred */}
@@ -134,9 +138,9 @@ const Listcoin: React.FC = () => {
             {/* RL Agent Buttons */}
             <div className="flex gap-2 justify-center">
               <ToggleButtonAgent
-                coin={coin} // Pass coin data to the button
+                coin={coin} // Pass full coin data
                 onStart={handleStartAgent} // Pass the onStart function
-                onStop={handleStopAgent}  // Pass the onStop function
+                onStop={handleStopAgent} // Pass the onStop function
               />
             </div>
           </div>
@@ -146,4 +150,4 @@ const Listcoin: React.FC = () => {
   );
 };
 
-export default Listcoin;
+export default Listcoin
