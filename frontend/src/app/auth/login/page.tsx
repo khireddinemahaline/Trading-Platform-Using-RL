@@ -151,7 +151,7 @@ const LoginPage = () => {
 
         {/* Register Button */}
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600 mb-2">Don't have an account?</p>
+          <p className="text-sm text-gray-600 mb-2">Don&apos;t have an account?</p>
           <button
             onClick={handleRegister}
             className="w-full py-3 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 transition ease-in-out duration-200"

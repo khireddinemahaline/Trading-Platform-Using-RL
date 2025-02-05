@@ -27,7 +27,7 @@ const ResetPasswordPage = () => {
       setSuccessMessage('A password reset link has been sent to your email address.');
       setErrorMessage('');
       setEmail('');
-    } catch (error) {
+    } catch {
       setErrorMessage('Failed to send reset link. Please try again later.');
       setSuccessMessage('');
     }
